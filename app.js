@@ -2,7 +2,7 @@
 (() => {
   const KEY = 'goalgrid.board.v1';
   const palette = ['#edf0e7', '#eee9e1', '#e7eceb', '#efe3db', '#eae6ed'];
-  const fresh = () => ({ version: 1, phrase: 'Todo lo que imagino empieza con un pequeño paso.', goals: Array.from({ length: 25 }, (_, i) => ({ text: '', color: palette[(i + Math.floor(i / 5)) % 5] })) });
+  const fresh = () => ({ version: 1, phrase: '', goals: Array.from({ length: 25 }, (_, i) => ({ text: '', color: palette[(i + Math.floor(i / 5)) % 5] })) });
   let state = fresh();
   let dirty = false;
   const status = document.querySelector('#status');
