@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Un espacio para tus 25 metas del año. Escribe, personaliza y guarda tu tablero GoalGrid.">
+  <title>GoalGrid · Mis metas del año</title>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='24' fill='%232f5145'/%3E%3Ctext x='50' y='72' text-anchor='middle' font-size='72' fill='white'%3E✳%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="styles.css"><script src="app.js" defer></script>
+</head>
+<body>
+  <header class="topbar"><a class="brand" href="./"><span aria-hidden="true">✳</span> GoalGrid</a><span class="edition">UN AÑO. MUCHAS POSIBILIDADES.</span><span class="badge">Tu espacio personal</span></header>
+  <main>
+    <section class="intro"><div><p class="eyebrow">DALE UN LUGAR A LO QUE SUEÑAS</p><h1>Pequeños pasos.<br><em>Un gran año.</em></h1><p class="description">25 espacios para eso que quieres hacer realidad.<br>Empieza con una idea y hazla tuya.</p></div><div class="year-art"><span class="spark" aria-hidden="true">✳</span><strong id="year"></strong><span>TU AÑO, A TU MANERA</span></div></section>
+    <section class="workspace" aria-labelledby="board-title">
+      <div class="board-heading"><div><p class="eyebrow">EL SIGUIENTE PASO EMPIEZA AQUÍ</p><h2 id="board-title">Mi tablero de metas</h2></div><button id="save" class="primary" type="button">Guardar tablero <span aria-hidden="true">↗</span></button></div>
+      <label class="phrase-label" for="phrase">Mi frase del año <span>Hazla tuya</span></label><input id="phrase" maxlength="140" value="Todo lo que imagino empieza con un pequeño paso." aria-describedby="phrase-help"><span id="phrase-help" class="sr-only">Puedes editar esta frase. Máximo 140 caracteres.</span>
+      <div class="toolbar"><p>Escribe en una celda para empezar.</p><span id="status" role="status" aria-live="polite">Sin cambios pendientes</span></div>
+      <div id="board" class="board" aria-label="Tablero de 25 metas"></div>
+      <div class="board-footer"><span>✧ Un espacio para cada posibilidad.</span><span>25 metas · Sin prisa, con intención</span></div>
+    </section>
+    <aside class="note"><span aria-hidden="true">↳</span><p><strong>Tu próximo gran paso puede ser pequeño.</strong><br>Escribe algo que te emocione. Usa el círculo de cada celda para darle color.</p></aside>
+    <p class="privacy">Tus metas se guardan solo en este navegador y dispositivo. Borrar sus datos elimina el tablero guardado.</p>
+  </main><footer class="site-footer"><span class="brand">✳ GoalGrid</span><span>Hecho para avanzar a tu ritmo.</span></footer>
+  <dialog id="color-dialog" aria-labelledby="color-title"><form id="color-form"><div class="dialog-heading"><h2 id="color-title">Dale color a tu meta</h2><button type="button" id="close-color" aria-label="Cerrar">×</button></div><p id="color-goal"></p><label for="color-picker">Elige un color</label><input id="color-picker" type="color" value="#edf0e7"><label for="hex">O escribe su código HEX</label><input id="hex" pattern="#[0-9a-fA-F]{6}" maxlength="7" required value="#edf0e7" aria-describedby="hex-help"><small id="hex-help">Seis caracteres, por ejemplo #E8D9CF.</small><button class="primary" type="submit">Aplicar color</button></form></dialog>
+</body></html>
