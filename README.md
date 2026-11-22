@@ -1,14 +1,14 @@
 # GoalGrid
 
-**Sprint 1 disponible:** https://leonardoh369.github.io/GoalGrid/
+**Aplicación pública:** https://leonardoh369.github.io/GoalGrid/
 
 Tablero de 25 metas con año actual, frase y textos editables, colores y HEX, guardado manual y recuperación automática en el mismo navegador. Pulsa **Guardar tablero** para conservar cambios. En móvil se muestran dos columnas para facilitar la edición.
 
 Para desarrollo, sirve esta carpeta con un servidor estático (por ejemplo `python -m http.server 4174 --bind 127.0.0.1`) y abre `http://127.0.0.1:4174`. La aplicación no tiene dependencias de ejecución ni requiere compilación.
 
-Para pruebas: instala Playwright, ejecuta `npx playwright install chromium` y luego `node tests/acceptance.cjs`. `BASE_URL` permite probar otra dirección. Las capturas y resultados se escriben en `.local/evidence/` y no se incluyen automáticamente en Git.
+Para pruebas: instala Playwright, ejecuta `npx playwright install chromium` y luego `node tests/acceptance.cjs` y `node tests/sprint2.cjs`. `BASE_URL` permite probar otra dirección. Las capturas y resultados se escriben en `.local/evidence/` y no se incluyen automáticamente en Git.
 
-Alcance, criterios, Review y retrospectiva: [Sprint 1](docs/SPRINT-1.md). Pendientes: completar metas, progreso, tiempo restante e impresión. El almacenamiento es local a este navegador y dispositivo.
+Alcance, criterios, Review y retrospectiva: [Sprint 1](docs/SPRINT-1.md). Incremento y criterios: [Sprint 2 / Fase 4](docs/SPRINT-2.md). Sprint 2 añade completado, estrella, progreso, periodo anual, colores rápidos, plantillas, restablecimiento por celda e imágenes locales. Pendiente: impresión. El almacenamiento es local a este navegador y dispositivo.
 
 > Aplicación web para crear, visualizar y gamificar metas anuales mediante un tablero visual personalizable.
 

@@ -3,7 +3,7 @@ const { chromium } = require('playwright');
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 (async () => {
-  const browser = await chromium.launch({headless:true});
+  const browser = await chromium.launch({headless:true, channel:process.env.PLAYWRIGHT_CHANNEL || 'chrome'});
   const context = await browser.newContext({viewport:{width:1440,height:1200}});
   const page = await context.newPage();
   const results = [];
@@ -15,7 +15,7 @@ const fs = require('node:fs');
   await test('#3 25 metas y cuadrícula de cinco columnas', async()=>{assert.equal(await page.locator('.goal').count(),25);assert.equal(await page.locator('.board').evaluate(e=>getComputedStyle(e).gridTemplateColumns.split(' ').length),5);});
   await test('#4 Año actual',async()=>assert.equal(await page.locator('#year').innerText(),String(new Date().getFullYear())));
   await test('#5 y #6 Edición independiente y texto seguro',async()=>{await page.locator('#phrase').fill('Un paso cada día');await page.getByRole('textbox',{name:'Meta 1',exact:true}).fill('Leer 12 libros <script>alert(1)</script>');await page.getByRole('textbox',{name:'Meta 25',exact:true}).fill('Aprender a nadar');assert.equal(await page.getByRole('textbox',{name:'Meta 2',exact:true}).inputValue(),'');});
-  await test('#7 y #8 Color HEX válido y rechazo de valor inválido',async()=>{await page.getByRole('button',{name:'Cambiar color de meta 1',exact:true}).click();await page.locator('#hex').fill('#zzzzzz');await page.getByRole('button',{name:'Aplicar color'}).click();assert.equal(await page.locator('dialog').isVisible(),true);await page.locator('#hex').fill('#223344');await page.getByRole('button',{name:'Aplicar color'}).click();assert.equal(await page.locator('.goal').first().evaluate(e=>getComputedStyle(e).backgroundColor),'rgb(34, 51, 68)');assert.equal(await page.locator('.goal').first().evaluate(e=>getComputedStyle(e).color),'rgb(255, 255, 255)');});
+  await test('#7 y #8 Color HEX válido y rechazo de valor inválido',async()=>{await page.getByRole('button',{name:'Cambiar color de meta 1',exact:true}).click();await page.locator('#hex').fill('#zzzzzz');await page.getByRole('button',{name:'Aplicar color'}).click();assert.equal(await page.locator('#color-dialog').isVisible(),true);await page.locator('#hex').fill('#223344');await page.getByRole('button',{name:'Aplicar color'}).click();assert.equal(await page.locator('.goal').first().evaluate(e=>getComputedStyle(e).backgroundColor),'rgb(34, 51, 68)');assert.equal(await page.locator('.goal').first().evaluate(e=>getComputedStyle(e).color),'rgb(255, 255, 255)');});
   await test('#13 y #14 Guardado y recuperación tras recarga',async()=>{await page.locator('#save').click();await page.reload();assert.equal(await page.locator('#phrase').inputValue(),'Un paso cada día');assert.match(await page.getByRole('textbox',{name:'Meta 1',exact:true}).inputValue(),/<script>/);assert.equal(await page.getByRole('textbox',{name:'Meta 25',exact:true}).inputValue(),'Aprender a nadar');assert.match(await page.locator('#status').innerText(),/recuperado/);assert.equal(await page.locator('.goal').first().evaluate(e=>getComputedStyle(e).backgroundColor),'rgb(34, 51, 68)');});
   await test('Sin errores de JavaScript',async()=>assert.deepEqual(errors,[]));
   // Captura de demostración; estos textos no son metas aportadas por el usuario.
@@ -33,7 +33,7 @@ const fs = require('node:fs');
   await denied.addInitScript(()=>{Storage.prototype.setItem=()=>{throw new DOMException('Blocked','QuotaExceededError')};});
   const dp = await denied.newPage();await dp.goto(base);
   await test('Fallo de almacenamiento informado sin falso éxito',async()=>{await dp.getByRole('textbox',{name:'Meta 1',exact:true}).fill('Mi meta');await dp.locator('#save').click();assert.match(await dp.locator('#status').innerText(),/No se pudo guardar/);});
-  await test('Teclado abre y cierra el selector de color',async()=>{await dp.getByRole('button',{name:'Cambiar color de meta 1',exact:true}).focus();await dp.keyboard.press('Enter');assert.equal(await dp.locator('dialog').isVisible(),true);await dp.keyboard.press('Escape');assert.equal(await dp.locator('dialog').isVisible(),false);});
+  await test('Teclado abre y cierra el selector de color',async()=>{await dp.getByRole('button',{name:'Cambiar color de meta 1',exact:true}).focus();await dp.keyboard.press('Enter');assert.equal(await dp.locator('#color-dialog').isVisible(),true);await dp.keyboard.press('Escape');assert.equal(await dp.locator('#color-dialog').isVisible(),false);});
   fs.writeFileSync('.local/evidence/test-results.json',JSON.stringify({base,executedAt:new Date().toISOString(),results},null,2));
   await browser.close();
 })().catch(error=>{console.error(error);process.exit(1)});
